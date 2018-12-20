@@ -23,7 +23,6 @@ public class CES extends Student {
 		Scanner scanner = null;
 		
 		FileReader fr = null;
-		BufferedReader br = null;
 		
 		try {
 			fr = new FileReader(filepath);
@@ -184,6 +183,32 @@ public class CES extends Student {
 		}
 	}
 	
+	private static void ListByScoreFromFile (String filepath) {
+		ReadFile(filepath).sort(new Comparator<Student>() {
+
+			@Override
+			public int compare(Student o1, Student o2) {
+				// TODO Auto-generated method stub
+				if (o1.mAvg < o2.mAvg)
+					return -1;
+				else if (o1.mAvg == o2.mAvg) {
+					return 0;
+				} else {
+					return 1;
+				}
+			}
+			
+		});
+		Collections.reverse(list);
+		
+		Iterator<Student> it = list.iterator();
+		while (it.hasNext()) {
+			Student s = it.next();
+			System.out.println("Id: " + s.getId() + " Name: " + s.getName() + " Avg : " + s.mAvg);
+			System.out.println("-----------------------------");
+		}
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -209,7 +234,7 @@ public class CES extends Student {
 				InqueryByIDFromFile("src/score.txt");
 				break;
 			case 3:
-				ListByScore ();
+				ListByScoreFromFile("src/score.txt");
 				break;
 				
 			case 0:
